@@ -1,33 +1,70 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { Todo } from "./model/todo.js";
+import { NavMenu } from "./nav-menu/index.js";
+import { AddWindow } from "./add-window/index.js";
+import { Display } from "./display/index.js";
 
-import { TodoList } from "./components/todo-list.js";
-import { AddTodo } from "./components/add-todo-popup.js";
+import { TodoManager } from "./model/todo.js";
+import { save, load, reset } from "./model/storage.js";
 
-import "./index.css";
+import "./style.css";
+
+const nullItemDestination = {add(){}};
+
+const navigator = {
+	goTo(focus) {
+		this.hideAddWindow();
+		this.app.setState({ focus });
+	},
+	hideAddWindow() {
+		this.app.setState({
+			addWindowItemDestination: nullItemDestination,
+			addWindowVisible: false,
+		});
+	},
+	showAddWindow(addWindowItemDestination = nullItemDestination) {
+		this.app.setState({
+			addWindowItemDestination,
+			addWindowVisible: true,
+		});
+	},
+};
+
+const itemManager = new TodoManager();
 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {items: []};
-		this.addTodo = this.addTodo.bind(this);
+		navigator.app = this;
+		itemManager.app = this;
+		load();
+		this.state = {
+			focus: itemManager.projects,
+			addWindowItemDestination: null,
+			addWindowVisibility: false,
+		};
 	}
 
 	render() {
+		save();
 		return (
-			<div className="app">
-				<TodoList list={this.state.items} />
-				<AddTodo addTodo={this.addTodo}/>
+			<div>
+				<button onClick={reset}>Reset</button>
+				<NavMenu></NavMenu>
+				<Display focus={this.state.focus}></Display>
+				{this.state.addWindowVisible ? (
+					<AddWindow
+						destination={this.state.addWindowItemDestination}
+						context={this.state.focus}
+					></AddWindow>
+				) : null}
 			</div>
 		);
 	}
-
-	addTodo(todo){
-		this.setState({items: [...this.state.items, todo]})
-	}
 }
+
+export { navigator, itemManager };
 
 // ========================================
 

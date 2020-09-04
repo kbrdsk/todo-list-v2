@@ -1,21 +1,22 @@
-import { todos, projects, categories, contacts } from "./index.js";
+import { itemManager } from "../index.js";
 
 function save() {
-	for(let todo of todos.collection){
-		if(todo.tags.list().length === 0) todos.collection.delete(todo);
+	const packedArray = [];
+	for (let collection of [
+		itemManager.todos,
+		itemManager.projects,
+		itemManager.categories,
+		itemManager.contacts,
+	]) {
+		packedArray.push(collection.map(packObject));
 	}
-	let collectionsArray = [todos, projects, categories, contacts];
-	let packedArray = collectionsArray.map(packCollection);
-	let dataString = JSON.stringify(packedArray);
-	localStorage.todoDataString = dataString;
+	packedArray.push(itemManager.storageId);
+	localStorage.todoDataString = JSON.stringify(packedArray);
 	console.log("Saved");
 }
 
-function packCollection(collection) {
-	let packedObjects = Array.from(collection.collection).map((obj) =>
-		packObject(obj, collection)
-	);
-	return packedObjects;
+function storeTodo(todo) {
+	return todo.storageId || itemManager.storageId++;
 }
 
 function packObject(todoListObject) {
@@ -23,7 +24,7 @@ function packObject(todoListObject) {
 	if (todoListObject.todoList) {
 		packedObject.todoListStorageData = todoListObject.todoList
 			.list()
-			.map((todo) => todo.storageId);
+			.map(storeTodo);
 	}
 
 	for (let packedProperty of [
@@ -39,8 +40,6 @@ function packObject(todoListObject) {
 	return packedObject;
 }
 
-function initializeStorage() {}
-
 function loadTodoList(loadingObject, todoObjectArray) {
 	for (let storageId of loadingObject.todoListStorageData) {
 		let todoObject = todoObjectArray.find(
@@ -51,30 +50,39 @@ function loadTodoList(loadingObject, todoObjectArray) {
 }
 
 function loadObject(dataObject, collection) {
-	let object = collection.itemGenerator();
+	let object = collection.add();
 	Object.assign(object, dataObject);
 }
 
-function load(dataString) {
+function load(dataString = localStorage.todoDataString) {
 	if (!dataString) return;
 
 	let dataArray = JSON.parse(dataString);
 
-	dataArray[0].map((obj) => loadObject(obj, todos));
-	dataArray[1].map((obj) => loadObject(obj, projects));
-	dataArray[2].map((obj) => loadObject(obj, categories));
-	dataArray[3].map((obj) => loadObject(obj, contacts));
+	itemManager.storageId = dataArray.pop();
 
-	let todoObjectArray = [
-		...Array.from(todos.collection),
-		...Array.from(projects.collection),
-	];
+	dataArray[0].map((obj) => loadObject(obj, itemManager.todos));
+	dataArray[1].map((obj) => loadObject(obj, itemManager.projects));
+	dataArray[2].map((obj) => loadObject(obj, itemManager.categories));
+	dataArray[3].map((obj) => loadObject(obj, itemManager.contacts));
 
-	for (let collection of [projects, categories, contacts]) {
-		Array.from(collection.collection).map((obj) =>
+	let todoObjectArray = [...itemManager.todos, ...itemManager.projects];
+
+	for (let collection of [
+		itemManager.projects,
+		itemManager.categories,
+		itemManager.contacts,
+	]) {
+		collection.map((obj) =>
 			loadTodoList(obj, todoObjectArray)
 		);
 	}
+
+	console.log("Loaded");
 }
 
-export { save, load, initializeStorage };
+function reset(){
+	localStorage.todoDataString = "";
+}
+
+export { save, load, reset };
