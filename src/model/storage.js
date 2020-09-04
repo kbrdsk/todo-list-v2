@@ -1,5 +1,9 @@
 import { itemManager } from "../index.js";
 
+
+//----------save-----------
+
+
 function save() {
 	const packedArray = [];
 	for (let collection of [
@@ -13,10 +17,6 @@ function save() {
 	packedArray.push(itemManager.storageId);
 	localStorage.todoDataString = JSON.stringify(packedArray);
 	console.log("Saved");
-}
-
-function storeTodo(todo) {
-	return todo.storageId || itemManager.storageId++;
 }
 
 function packObject(todoListObject) {
@@ -40,19 +40,14 @@ function packObject(todoListObject) {
 	return packedObject;
 }
 
-function loadTodoList(loadingObject, todoObjectArray) {
-	for (let storageId of loadingObject.todoListStorageData) {
-		let todoObject = todoObjectArray.find(
-			(obj) => obj.storageId === storageId
-		);
-		loadingObject.todoList.add(todoObject);
-	}
+
+function storeTodo(todo) {
+	return todo.storageId || itemManager.storageId++;
 }
 
-function loadObject(dataObject, collection) {
-	let object = collection.add();
-	Object.assign(object, dataObject);
-}
+
+//----------load-----------
+
 
 function load(dataString = localStorage.todoDataString) {
 	if (!dataString) return;
@@ -81,8 +76,30 @@ function load(dataString = localStorage.todoDataString) {
 	console.log("Loaded");
 }
 
+function loadObject(dataObject, collection) {
+	let object = collection.add();
+	Object.assign(object, dataObject);
+}
+
+function loadTodoList(loadingObject, todoObjectArray) {
+	for (let storageId of loadingObject.todoListStorageData) {
+		let todoObject = todoObjectArray.find(
+			(obj) => obj.storageId === storageId
+		);
+		loadingObject.todoList.add(todoObject);
+	}
+}
+
+
+//----------reset-----------
+
+
 function reset(){
 	localStorage.todoDataString = "";
 }
+
+
+//----------exports-----------
+
 
 export { save, load, reset };
