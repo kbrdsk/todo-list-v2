@@ -1,10 +1,9 @@
 import { itemManager } from "../index.js";
 
-
 //----------save-----------
 
-
 function save() {
+	itemManager.storageId = itemManager.storageId || 1;
 	const packedArray = [];
 	for (let collection of [
 		itemManager.todos,
@@ -20,15 +19,18 @@ function save() {
 }
 
 function packObject(todoListObject) {
+	todoListObject.storageId =
+		todoListObject.storageId || itemManager.storageId++;
 	let packedObject = Object.assign({}, todoListObject);
 	if (todoListObject.todoList) {
 		packedObject.todoListStorageData = todoListObject.todoList
 			.list()
-			.map(storeTodo);
+			.map((todo) => todo.storageId);
 	}
 
 	for (let packedProperty of [
 		"todoList",
+		"_todoList",
 		"tags",
 		"dueDate",
 		"scheduleDate",
@@ -36,18 +38,10 @@ function packObject(todoListObject) {
 	]) {
 		delete packedObject[packedProperty];
 	}
-
 	return packedObject;
 }
 
-
-function storeTodo(todo) {
-	return todo.storageId || itemManager.storageId++;
-}
-
-
 //----------load-----------
-
 
 function load(dataString = localStorage.todoDataString) {
 	if (!dataString) return;
@@ -68,9 +62,7 @@ function load(dataString = localStorage.todoDataString) {
 		itemManager.categories,
 		itemManager.contacts,
 	]) {
-		collection.map((obj) =>
-			loadTodoList(obj, todoObjectArray)
-		);
+		collection.map((obj) => loadTodoList(obj, todoObjectArray));
 	}
 
 	console.log("Loaded");
@@ -90,16 +82,12 @@ function loadTodoList(loadingObject, todoObjectArray) {
 	}
 }
 
-
 //----------reset-----------
 
-
-function reset(){
+function reset() {
 	localStorage.todoDataString = "";
 }
 
-
 //----------exports-----------
-
 
 export { save, load, reset };
