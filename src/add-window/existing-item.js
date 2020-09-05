@@ -66,6 +66,10 @@ export class ExistingItem extends React.Component {
 			? this.contactFilter()
 			: this.todoFilter();
 		const collection = this.#collections[this.type];
-		return <div>{collection.filter(filter).map(this.renderSelection)}</div>;
+		return (
+			<div className="item-form">
+				{collection.filter(filter).map(this.renderSelection)}
+			</div>
+		);
 	}
 }

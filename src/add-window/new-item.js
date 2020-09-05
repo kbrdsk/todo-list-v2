@@ -37,7 +37,7 @@ export class NewItem extends React.Component {
 	render() {
 		const type = this.props.type;
 		return (
-			<div>
+			<div className="item-form">
 				{["project", "todo", "category"].includes(type) ? (
 					<input
 						type="text"

@@ -49,15 +49,15 @@ class App extends React.Component {
 	render() {
 		save();
 		return (
-			<div>
-				<button onClick={reset}>Reset</button>
-				<NavMenu></NavMenu>
-				<Display focus={this.state.focus}></Display>
+			<div id="app">
+				{/*<button onClick={reset}>Reset</button>*/}
+				<NavMenu />
+				<Display focus={this.state.focus} />
 				{this.state.addWindowVisible ? (
 					<AddWindow
 						destination={this.state.addWindowItemDestination}
 						context={this.state.focus}
-					></AddWindow>
+					/>
 				) : null}
 			</div>
 		);

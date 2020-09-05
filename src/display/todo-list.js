@@ -15,11 +15,12 @@ export class TodoList extends React.Component {
 
 	renderItem(item) {
 		return (
-			<div className="todo-list-item"  key={item.storageId}>
+			<div className="todo-list-item" key={item.storageId}>
 				<span
+					className="checkbox"
 					onClick={this.toggleDone.bind(this, item)}
 				>
-					{item.isDone ? "X" : "_"}
+					{item.isDone ? "\u2713" : " "}
 				</span>
 				<span onClick={() => navigator.goTo(item)}>{item.title}</span>
 				<button
@@ -45,9 +46,12 @@ export class TodoList extends React.Component {
 		const title =
 			focus.itemType === "category" ? "Add Project" : "Add Todo";
 		return (
-			<button onClick={() => navigator.showAddWindow(focus.todoList)}>
+			<div
+				className="todo-list-item"
+				onClick={() => navigator.showAddWindow(focus.todoList)}
+			>
 				{title}
-			</button>
+			</div>
 		);
 	}
 }

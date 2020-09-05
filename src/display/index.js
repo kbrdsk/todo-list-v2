@@ -7,11 +7,13 @@ import {
 } from "./collections.js";
 import { Todo, Project, Category, Contact } from "./items.js";
 
+import "./style.css";
+
 export class Display extends React.Component {
 	render() {
 		const focus = this.props.focus;
 		return (
-			<div>
+			<div id="display">
 				{focus.itemType
 					? this.displayItem(focus.itemType)
 					: this.displayCollection(focus.collectionType)}

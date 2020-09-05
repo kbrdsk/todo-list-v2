@@ -22,7 +22,7 @@ export class Tags extends React.Component {
 
 	renderItem(item) {
 		return (
-			<div className="item">
+			<div className="item" key={item.storageId}>
 				<span onClick={() => navigator.goTo(item)}>{item.title}</span>
 				<button
 					onClick={() => {

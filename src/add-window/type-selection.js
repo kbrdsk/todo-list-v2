@@ -9,7 +9,7 @@ export class TypeSelection extends React.Component {
 		const contact = this.props.destination.contact;
 		const context = this.props.context;
 		return (
-			<div>
+			<div className="popup" onClick={(e) => e.stopPropagation()}>
 				{!contact && !tag && context !== "category" ? (
 					<button onClick={this.next(true, "todo")}>New Todo</button>
 				) : null}

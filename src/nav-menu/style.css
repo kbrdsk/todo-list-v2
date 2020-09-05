@@ -1,0 +1,18 @@
+#nav-menu{
+	display: flex;
+	flex-direction: column;
+}
+
+#nav-menu > button{
+	border: none;
+	opacity: 0.8;
+	padding: 4em 0.7em;
+	background-color: white;
+}
+
+#nav-menu > button:focus{
+	outline: none;
+}
+#nav-menu > button:hover{
+	background-color: var(--light-blue);
+}

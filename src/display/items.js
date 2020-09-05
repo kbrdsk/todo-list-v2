@@ -14,9 +14,9 @@ class Project extends React.Component {
 	render() {
 		const project = this.props.focus;
 		return (
-			<div>
+			<div className="item-display">
 				<h2>{project.title}</h2>
-				<p>{project.description}</p>
+				{project.description ? <p>{project.description}</p> : null}
 				<button onClick={this.toggleView}>
 					{this.state.showContacts ? "Todo List" : "Contacts"}
 				</button>
@@ -44,13 +44,13 @@ class Todo extends React.Component {
 	render() {
 		const todo = this.props.focus;
 		return (
-			<div>
+			<div className="item-display">
 				<h2>{todo.title}</h2>
 				<p>{todo.description}</p>
 				<button onClick={this.toggleView}>
 					{this.state.showContacts
-						? "Show Contacts"
-						: "Hide Contacts"}
+						? "Hide Contacts"
+						: "Show Contacts"}
 				</button>
 				{this.state.showContacts ? <ContactList item={todo} /> : null}
 				<Tags focus={todo} />
@@ -72,7 +72,7 @@ class Category extends React.Component {
 	render() {
 		const category = this.props.focus;
 		return (
-			<div>
+			<div className="item-display">
 				<h2>{category.title}</h2>
 				<button onClick={this.toggleView}>
 					{this.state.showContacts ? "Project List" : "Contacts"}
@@ -95,7 +95,7 @@ class Contact extends React.Component {
 	render() {
 		const contact = this.props.focus;
 		return (
-			<div>
+			<div className="item-display">
 				<h2>
 					{contact.contactName.first + " " + contact.contactName.last}
 				</h2>

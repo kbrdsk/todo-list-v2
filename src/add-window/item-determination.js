@@ -18,7 +18,7 @@ export class ItemDetermination extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div className="popup" onClick={(e) => e.stopPropagation()}>
 				{this.props.new ? (
 					<NewItem carrier={this.carrier} type={this.props.type} />
 				) : (
@@ -34,7 +34,3 @@ export class ItemDetermination extends React.Component {
 		);
 	}
 }
-
-
-
-

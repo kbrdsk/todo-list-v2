@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Alegreya&display=swap');
+
+:root{
+	--yellow: #F2A104;
+	--green: #00743F;
+	--light-blue: #72A2C0;
+	--blue: #1D65A6;
+	--dark-blue: #192E5B;
+}
+
+* {
+	font-family: 'Alegreya';
+	box-sizing: border-box;
+}
+
+#app{
+	display: flex;
+	transform: scale(1, 1);
+}
+
+button:focus{
+	outline: none;
+}
