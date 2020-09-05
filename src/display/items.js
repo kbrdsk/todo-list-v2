@@ -25,7 +25,7 @@ class Project extends React.Component {
 				) : (
 					<TodoList focus={project} />
 				)}
-				<Tags tags={project.tags} />
+				<Tags focus={project} />
 			</div>
 		);
 	}
@@ -53,7 +53,7 @@ class Todo extends React.Component {
 						: "Hide Contacts"}
 				</button>
 				{this.state.showContacts ? <ContactList item={todo} /> : null}
-				<Tags tags={todo.tags} />
+				<Tags focus={todo} />
 			</div>
 		);
 	}
@@ -103,6 +103,7 @@ class Contact extends React.Component {
 				<span>{contact.phone}</span>
 				<span>{contact.organization}</span>
 				<TodoList focus={contact} />
+				<Tags focus={contact} />
 			</div>
 		);
 	}

@@ -18,7 +18,19 @@ class ProjectCollection extends React.Component {
 	}
 
 	renderProject(project) {
-		return <div onClick={navTo(project)}>{project.title}</div>;
+		return (
+			<div>
+				<span onClick={navTo(project)}>{project.title}</span>
+				<button
+					onClick={() => {
+						itemManager.projects.remove(project);
+						navigator.goTo(itemManager.projects);
+					}}
+				>
+					del
+				</button>
+			</div>
+		);
 	}
 }
 
@@ -36,7 +48,19 @@ class CategoryCollection extends React.Component {
 	}
 
 	renderCategory(category) {
-		return <div onClick={navTo(category)}>{category.title}</div>;
+		return (
+			<div>
+				<span onClick={navTo(category)}>{category.title}</span>
+				<button
+					onClick={() => {
+						itemManager.categories.remove(category);
+						navigator.goTo(itemManager.categories);
+					}}
+				>
+					del
+				</button>
+			</div>
+		);
 	}
 }
 

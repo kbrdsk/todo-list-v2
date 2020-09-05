@@ -33,6 +33,7 @@ export function TodoManager() {
 				const collection = [...todos];
 				collection.collectionType = "todo";
 				collection.add = addTodo;
+				collection.remove = deleteItem.bind(todos);
 				return collection;
 			},
 		},
@@ -41,6 +42,7 @@ export function TodoManager() {
 				const collection = [...projects];
 				collection.collectionType = "project";
 				collection.add = addProject;
+				collection.remove = deleteItem.bind(projects);
 				return collection;
 			},
 		},
@@ -49,6 +51,7 @@ export function TodoManager() {
 				const collection = [...contacts];
 				collection.collectionType = "contact";
 				collection.add = addContact;
+				collection.remove = deleteItem.bind(contacts);
 				return collection;
 			},
 		},
@@ -57,10 +60,22 @@ export function TodoManager() {
 				const collection = [...categories];
 				collection.collectionType = "category";
 				collection.add = addCategory;
+				collection.remove = deleteItem.bind(categories);
 				return collection;
 			},
 		},
 	});
+}
+
+function deleteItem(item){
+	for(let tag of item.tags? item.tags.list() : []){
+		tag.todoList.remove(item);
+	}
+	for(let todo of item.todoList? item.todoList.list() : []){
+		item.todoList.remove(todo);
+	}
+	const index = this.indexOf(item);
+	this.splice(index, 1);
 }
 
 function Todo(name = "New Todo") {
@@ -147,7 +162,6 @@ function createTodoList(creatingObj) {
 			let index = todos.indexOf(todoItem);
 			todos = [...todos.slice(0, index), ...todos.slice(index + 1)];
 		}
-		todoItem.tags.remove(todoItem);
 	};
 
 	let place = (todoItem, index) => {

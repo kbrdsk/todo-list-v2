@@ -15,13 +15,29 @@ export class TodoList extends React.Component {
 
 	renderItem(item) {
 		return (
-			<div
-				className="todo-list-item"
-				onClick={() => navigator.goTo(item)}
-			>
-				{item.title}
+			<div className="todo-list-item">
+				<span
+					onClick={this.toggleDone.bind(this, item)}
+				>
+					{item.isDone ? "X" : "_"}
+				</span>
+				<span onClick={() => navigator.goTo(item)}>{item.title}</span>
+				<button
+					onClick={() => {
+						this.props.focus.todoList.remove(item);
+						item.tags.remove(this.props.focus);
+						navigator.goTo(this.props.focus);
+					}}
+				>
+					del
+				</button>
 			</div>
 		);
+	}
+
+	toggleDone(item) {
+		item.isDone = !item.isDone;
+		navigator.goTo(this.props.focus);
 	}
 
 	renderAddButton() {

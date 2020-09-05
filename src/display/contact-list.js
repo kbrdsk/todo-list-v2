@@ -39,8 +39,16 @@ export class ContactList extends React.Component {
 
 	renderContact(contact) {
 		return (
-			<div className="contact" onClick={() => navigator.goTo(contact)}>
-				{`${contact.contactName.last}, ${contact.contactName.first}`}
+			<div className="contact">
+				<span onClick={() => navigator.goTo(contact)}>
+					{`${contact.contactName.last}, ${contact.contactName.first}`}
+				</span>
+				<button onClick={() => {
+					const item = this.props.item;
+					if(item) contact.todoList.remove(item);
+					else itemManager.contacts.remove(contact);
+					navigator.goTo(item || itemManager.contacts);
+				}}>del</button>
 			</div>
 		);
 	}
