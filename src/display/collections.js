@@ -7,7 +7,7 @@ import { navigator, itemManager } from "../index.js";
 class ProjectCollection extends React.Component {
 	render() {
 		return (
-			<div>
+			<div className="collection">
 				<h2>Projects</h2>
 				{itemManager.projects.map(this.renderProject)}
 				<div
@@ -25,12 +25,13 @@ class ProjectCollection extends React.Component {
 			<div className="project"  key={project.storageId}>
 				<span onClick={navTo(project)}>{project.title}</span>
 				<button
+					className="delete"
 					onClick={() => {
 						itemManager.projects.remove(project);
 						navigator.goTo(itemManager.projects);
 					}}
 				>
-					del
+					{"\u2715"}
 				</button>
 			</div>
 		);
@@ -40,7 +41,7 @@ class ProjectCollection extends React.Component {
 class CategoryCollection extends React.Component {
 	render() {
 		return (
-			<div>
+			<div className="collection">
 				<h2>Categories</h2>
 				{itemManager.categories.map(this.renderCategory)}
 				<div
@@ -58,12 +59,13 @@ class CategoryCollection extends React.Component {
 			<div className="category" key={category.storageId}>
 				<span onClick={navTo(category)}>{category.title}</span>
 				<button
+					className="delete"
 					onClick={() => {
 						itemManager.categories.remove(category);
 						navigator.goTo(itemManager.categories);
 					}}
 				>
-					del
+					{"\u2715"}
 				</button>
 			</div>
 		);

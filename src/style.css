@@ -11,6 +11,7 @@
 * {
 	font-family: 'Alegreya';
 	box-sizing: border-box;
+	user-select: none;
 }
 
 #app{
@@ -20,4 +21,8 @@
 
 button:focus{
 	outline: none;
+}
+
+button{
+	cursor: pointer;
 }

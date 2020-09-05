@@ -156,7 +156,9 @@ function createTodoList(creatingObj) {
 	let add = (todoItem) => {
 		if (todos.includes(todoItem)) return;
 		todos = [...todos, todoItem];
-		todoItem.tags.add(creatingObj);
+		if (creatingObj.itemType !== "contact") {
+			todoItem.tags.add(creatingObj);
+		}
 	};
 
 	let remove = (todoItem) => {

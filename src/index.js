@@ -6,7 +6,7 @@ import { AddWindow } from "./add-window/index.js";
 import { Display } from "./display/index.js";
 
 import { TodoManager } from "./model/todo.js";
-import { save, load, reset } from "./model/storage.js";
+import { save, load/*, reset*/ } from "./model/storage.js";
 
 import "./style.css";
 

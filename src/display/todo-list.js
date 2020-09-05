@@ -16,21 +16,21 @@ export class TodoList extends React.Component {
 	renderItem(item) {
 		return (
 			<div className="todo-list-item" key={item.storageId}>
-				<span
-					className="checkbox"
+				<div
+					className={"checkbox" + (item.isDone?" done":"")}
 					onClick={this.toggleDone.bind(this, item)}
 				>
-					{item.isDone ? "\u2713" : " "}
-				</span>
-				<span onClick={() => navigator.goTo(item)}>{item.title}</span>
+				</div>
+				<div onClick={() => navigator.goTo(item)}>{item.title}</div>
 				<button
 					onClick={() => {
 						this.props.focus.todoList.remove(item);
 						item.tags.remove(this.props.focus);
 						navigator.goTo(this.props.focus);
 					}}
+					className="delete"
 				>
-					del
+					{"\u2715"}
 				</button>
 			</div>
 		);

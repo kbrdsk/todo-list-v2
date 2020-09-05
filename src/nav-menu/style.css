@@ -8,6 +8,7 @@
 	opacity: 0.8;
 	padding: 4em 0.7em;
 	background-color: white;
+	cursor: pointer;
 }
 
 #nav-menu > button:focus{

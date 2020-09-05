@@ -43,12 +43,12 @@ export class ContactList extends React.Component {
 				<span onClick={() => navigator.goTo(contact)}>
 					{`${contact.contactName.last}, ${contact.contactName.first}`}
 				</span>
-				<button onClick={() => {
+				<button className="delete" onClick={() => {
 					const item = this.props.item;
 					if(item) contact.todoList.remove(item);
 					else itemManager.contacts.remove(contact);
 					navigator.goTo(item || itemManager.contacts);
-				}}>del</button>
+				}}>{"\u2715"}</button>
 			</div>
 		);
 	}

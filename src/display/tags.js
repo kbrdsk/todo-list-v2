@@ -13,7 +13,7 @@ export class Tags extends React.Component {
 						navigator.showAddWindow(this.props.focus.tags)
 					}
 				>
-					New Tag
+					+ New Tag
 				</div>
 				{list.map((item) => this.renderItem(item))}
 			</div>
@@ -25,13 +25,14 @@ export class Tags extends React.Component {
 			<div className="item" key={item.storageId}>
 				<span onClick={() => navigator.goTo(item)}>{item.title}</span>
 				<button
+					className="delete"
 					onClick={() => {
 						item.todoList.remove(this.props.focus);
 						this.props.focus.tags.remove(item);
 						navigator.goTo(this.props.focus);
 					}}
 				>
-					del
+					{"\u2715"}
 				</button>
 			</div>
 		);
