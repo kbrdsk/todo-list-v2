@@ -14,7 +14,7 @@ function save() {
 		packedArray.push(collection.map(packObject));
 	}
 	packedArray.push(itemManager.storageId);
-	localStorage.todoDataString = JSON.stringify(packedArray);
+	localStorage.itemManagerDataString = JSON.stringify(packedArray);
 	console.log("Saved");
 }
 
@@ -43,7 +43,7 @@ function packObject(todoListObject) {
 
 //----------load-----------
 
-function load(dataString = localStorage.todoDataString) {
+function load(dataString = localStorage.itemManagerDataString) {
 	if (!dataString) return;
 
 	let dataArray = JSON.parse(dataString);
@@ -86,7 +86,7 @@ function loadTodoList(loadingObject, todoObjectArray) {
 //----------reset-----------
 
 function reset() {
-	localStorage.todoDataString = "";
+	localStorage.itemManagerDataString = "";
 }
 
 //----------exports-----------
