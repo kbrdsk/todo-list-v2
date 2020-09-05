@@ -10,7 +10,7 @@ import { save, load, reset } from "./model/storage.js";
 
 import "./style.css";
 
-const nullItemDestination = {add(){}};
+const nullItemDestination = { add() {} };
 
 const navigator = {
 	goTo(focus) {

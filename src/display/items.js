@@ -93,7 +93,18 @@ class Category extends React.Component {
 
 class Contact extends React.Component {
 	render() {
-		return <div>Displaying Contact</div>;
+		const contact = this.props.focus;
+		return (
+			<div>
+				<h2>
+					{contact.contactName.first + " " + contact.contactName.last}
+				</h2>
+				<span>{contact.email}</span>
+				<span>{contact.phone}</span>
+				<span>{contact.organization}</span>
+				<TodoList focus={contact} />
+			</div>
+		);
 	}
 }
 

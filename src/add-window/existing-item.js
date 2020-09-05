@@ -29,7 +29,8 @@ export class ExistingItem extends React.Component {
 				onClick={() => this.selectItem(item)}
 				className={item === this.state.selection ? "selected" : ""}
 			>
-				{item.title}
+				{item.title ||
+					item.contactName.last + ", " + item.contactName.first}
 			</div>
 		);
 	}
@@ -37,9 +38,10 @@ export class ExistingItem extends React.Component {
 	todoFilter() {
 		const context = this.props.context;
 		const todoList = this.destination.list();
-		return (item) => !todoList.includes(item) &&
-		 !(item === context) &&
-		 !(context.itemType === "project" && context.isChildOf(item));
+		return (item) =>
+			!todoList.includes(item) &&
+			!(item === context) &&
+			!(context.itemType === "project" && context.isChildOf(item));
 	}
 
 	tagFilter() {
@@ -50,9 +52,18 @@ export class ExistingItem extends React.Component {
 			!item.todoList.list().includes(context);
 	}
 
+	contactFilter() {
+		const context = this.props.context;
+		if (context.itemType === "category")
+			return (contact) => !contact.tags.list().includes(context);
+		else return (contact) => !contact.todoList.list().includes(context);
+	}
+
 	render() {
 		const filter = this.destination.tags
 			? this.tagFilter()
+			: this.destination.contact
+			? this.contactFilter()
 			: this.todoFilter();
 		const collection = this.#collections[this.type];
 		return <div>{collection.filter(filter).map(this.renderSelection)}</div>;

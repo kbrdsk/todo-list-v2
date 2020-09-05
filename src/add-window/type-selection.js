@@ -6,23 +6,28 @@ export class TypeSelection extends React.Component {
 	}
 	render() {
 		const tag = !!this.props.destination.tags;
+		const contact = this.props.destination.contact;
 		const context = this.props.context;
 		return (
 			<div>
-				{!tag && context === "project" ? (
+				{!contact && !tag && context !== "category" ? (
 					<button onClick={this.next(true, "todo")}>New Todo</button>
 				) : null}
-				{!tag && context === "project" ? (
+				{!contact && !tag && context !== "category" ? (
 					<button onClick={this.next(false, "todo")}>
 						Existing Todo
 					</button>
 				) : null}
-				<button onClick={this.next(true, "project")}>
-					New Project
-				</button>
-				<button onClick={this.next(false, "project")}>
-					Existing Project
-				</button>
+				{!contact ? (
+					<button onClick={this.next(true, "project")}>
+						New Project
+					</button>
+				) : null}
+				{!contact ? (
+					<button onClick={this.next(false, "project")}>
+						Existing Project
+					</button>
+				) : null}
 				{tag ? (
 					<button onClick={this.next(true, "category")}>
 						New Category
@@ -31,6 +36,16 @@ export class TypeSelection extends React.Component {
 				{tag ? (
 					<button onClick={this.next(false, "category")}>
 						Existing Category
+					</button>
+				) : null}
+				{contact ? (
+					<button onClick={this.next(true, "contact")}>
+						New Contact
+					</button>
+				) : null}
+				{contact ? (
+					<button onClick={this.next(false, "contact")}>
+						Existing Contact
 					</button>
 				) : null}
 			</div>

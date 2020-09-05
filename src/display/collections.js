@@ -1,12 +1,14 @@
 import React from "react";
 
+import { ContactList } from "./contact-list.js";
+
 import { navigator, itemManager } from "../index.js";
 
 class ProjectCollection extends React.Component {
 	render() {
 		return (
 			<div>
-				Displaying Project Collection
+				<h2>Projects</h2>
 				{itemManager.projects.map(this.renderProject)}
 				<button onClick={() => navigator.showAddWindow()}>
 					Add Project
@@ -24,7 +26,7 @@ class CategoryCollection extends React.Component {
 	render() {
 		return (
 			<div>
-				Displaying Category Collection
+				<h2>Categories</h2>
 				{itemManager.categories.map(this.renderCategory)}
 				<button onClick={() => navigator.showAddWindow()}>
 					Add Category
@@ -40,7 +42,12 @@ class CategoryCollection extends React.Component {
 
 class ContactCollection extends React.Component {
 	render() {
-		return <div>Displaying Contact Collection</div>;
+		return (
+			<div>
+				<h2>Contacts</h2>
+				<ContactList />
+			</div>
+		);
 	}
 }
 

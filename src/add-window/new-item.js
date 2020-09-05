@@ -17,7 +17,7 @@ export class NewItem extends React.Component {
 		this.state = { attributes };
 		Object.defineProperty(this.props.carrier, "item", {
 			get() {
-				const item = generator();
+				const item = generator(attributes.first, attributes.last);
 				for (let attr in attributes) {
 					item[attr] = attributes[attr];
 				}
@@ -50,6 +50,41 @@ export class NewItem extends React.Component {
 						type="text"
 						placeholder="Description"
 						onChange={this.updateAttr.bind(this, "description")}
+					/>
+				) : null}
+				{type === "contact" ? (
+					<input
+						type="text"
+						placeholder="First"
+						onChange={this.updateAttr.bind(this, "first")}
+					/>
+				) : null}
+				{type === "contact" ? (
+					<input
+						type="text"
+						placeholder="Last"
+						onChange={this.updateAttr.bind(this, "last")}
+					/>
+				) : null}
+				{type === "contact" ? (
+					<input
+						type="email"
+						placeholder="email@domain"
+						onChange={this.updateAttr.bind(this, "email")}
+					/>
+				) : null}
+				{type === "contact" ? (
+					<input
+						type="tel"
+						placeholder="(xxx) xxx-xxxx"
+						onChange={this.updateAttr.bind(this, "phone")}
+					/>
+				) : null}
+				{type === "contact" ? (
+					<input
+						type="text"
+						placeholder="Organization"
+						onChange={this.updateAttr.bind(this, "organization")}
 					/>
 				) : null}
 			</div>
