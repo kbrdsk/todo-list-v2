@@ -15,7 +15,7 @@
 }
 
 #app{
-	display: flex;
+	display: inline-flex;
 	transform: scale(1, 1);
 }
 
