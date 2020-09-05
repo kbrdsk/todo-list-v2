@@ -10,16 +10,19 @@ class ProjectCollection extends React.Component {
 			<div>
 				<h2>Projects</h2>
 				{itemManager.projects.map(this.renderProject)}
-				<button onClick={() => navigator.showAddWindow()}>
+				<div
+					className="project"
+					onClick={() => navigator.showAddWindow()}
+				>
 					Add Project
-				</button>
+				</div>
 			</div>
 		);
 	}
 
 	renderProject(project) {
 		return (
-			<div>
+			<div className="project"  key={project.storageId}>
 				<span onClick={navTo(project)}>{project.title}</span>
 				<button
 					onClick={() => {
@@ -40,16 +43,19 @@ class CategoryCollection extends React.Component {
 			<div>
 				<h2>Categories</h2>
 				{itemManager.categories.map(this.renderCategory)}
-				<button onClick={() => navigator.showAddWindow()}>
+				<div
+					className="category"
+					onClick={() => navigator.showAddWindow()}
+				>
 					Add Category
-				</button>
+				</div>
 			</div>
 		);
 	}
 
 	renderCategory(category) {
 		return (
-			<div>
+			<div className="category" key={category.storageId}>
 				<span onClick={navTo(category)}>{category.title}</span>
 				<button
 					onClick={() => {

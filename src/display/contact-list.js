@@ -39,7 +39,7 @@ export class ContactList extends React.Component {
 
 	renderContact(contact) {
 		return (
-			<div className="contact">
+			<div className="contact"  key={contact.storageId}>
 				<span onClick={() => navigator.goTo(contact)}>
 					{`${contact.contactName.last}, ${contact.contactName.first}`}
 				</span>

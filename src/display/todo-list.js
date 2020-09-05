@@ -15,7 +15,7 @@ export class TodoList extends React.Component {
 
 	renderItem(item) {
 		return (
-			<div className="todo-list-item">
+			<div className="todo-list-item"  key={item.storageId}>
 				<span
 					onClick={this.toggleDone.bind(this, item)}
 				>
