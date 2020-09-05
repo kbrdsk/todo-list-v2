@@ -38,7 +38,7 @@ class App extends React.Component {
 		super(props);
 		navigator.app = this;
 		itemManager.app = this;
-		load();
+		//load();
 		this.state = {
 			focus: itemManager.projects,
 			addWindowItemDestination: null,

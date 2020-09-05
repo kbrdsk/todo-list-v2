@@ -196,7 +196,7 @@ function TagList(item) {
 
 	this.add = (tag) => {
 		this.tags.add(tag);
-		tag.todoList.add(item);
+		if(tag.todoList) tag.todoList.add(item);
 	};
 
 	this.remove = (tag) => {

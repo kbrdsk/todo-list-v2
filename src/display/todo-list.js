@@ -4,13 +4,15 @@ import { navigator } from "../index.js";
 
 export class TodoList extends React.Component {
 	render() {
+		const list = this.props.focus.todoList.list();
 		return (
 			<div className="todo-list">
-				{this.props.list.map((item) => this.renderItem(item))}
+				{list.map((item) => this.renderItem(item))}
+				{this.renderAddButton()}
 			</div>
 		);
 	}
-	
+
 	renderItem(item) {
 		return (
 			<div
@@ -19,6 +21,17 @@ export class TodoList extends React.Component {
 			>
 				{item.title}
 			</div>
+		);
+	}
+
+	renderAddButton() {
+		const focus = this.props.focus;
+		const title =
+			focus.itemType === "category" ? "Add Project" : "Add Todo";
+		return (
+			<button onClick={() => navigator.showAddWindow(focus.todoList)}>
+				{title}
+			</button>
 		);
 	}
 }
