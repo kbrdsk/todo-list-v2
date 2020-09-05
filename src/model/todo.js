@@ -30,7 +30,9 @@ export function TodoManager() {
 	Object.defineProperties(this, {
 		todos: {
 			get() {
-				const collection = [...todos];
+				const collection = [...todos].filter(
+					(todo) => todo.tags.list().length > 0
+				);
 				collection.collectionType = "todo";
 				collection.add = addTodo;
 				collection.remove = deleteItem.bind(todos);
@@ -67,11 +69,11 @@ export function TodoManager() {
 	});
 }
 
-function deleteItem(item){
-	for(let tag of item.tags? item.tags.list() : []){
+function deleteItem(item) {
+	for (let tag of item.tags ? item.tags.list() : []) {
 		tag.todoList.remove(item);
 	}
-	for(let todo of item.todoList? item.todoList.list() : []){
+	for (let todo of item.todoList ? item.todoList.list() : []) {
 		item.todoList.remove(todo);
 	}
 	const index = this.indexOf(item);
@@ -210,7 +212,7 @@ function TagList(item) {
 
 	this.add = (tag) => {
 		this.tags.add(tag);
-		if(tag.todoList) tag.todoList.add(item);
+		if (tag.todoList) tag.todoList.add(item);
 	};
 
 	this.remove = (tag) => {
