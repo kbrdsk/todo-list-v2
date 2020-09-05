@@ -50,12 +50,12 @@ function load(dataString = localStorage.todoDataString) {
 
 	itemManager.storageId = dataArray.pop();
 
-	dataArray[0].map((obj) => loadObject(obj, itemManager.todos));
+	const todos = dataArray[0].map((obj) => loadObject(obj, itemManager.todos));
 	dataArray[1].map((obj) => loadObject(obj, itemManager.projects));
 	dataArray[2].map((obj) => loadObject(obj, itemManager.categories));
 	dataArray[3].map((obj) => loadObject(obj, itemManager.contacts));
 
-	let todoObjectArray = [...itemManager.todos, ...itemManager.projects];
+	let todoObjectArray = [...todos, ...itemManager.projects];
 
 	for (let collection of [
 		itemManager.projects,
@@ -71,6 +71,7 @@ function load(dataString = localStorage.todoDataString) {
 function loadObject(dataObject, collection) {
 	let object = collection.add();
 	Object.assign(object, dataObject);
+	return object;
 }
 
 function loadTodoList(loadingObject, todoObjectArray) {
